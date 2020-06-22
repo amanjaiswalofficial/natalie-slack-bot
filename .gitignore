@@ -1,4 +1,9 @@
+.gitignore
 .idea/
 config.json
 venv/
 app/__pycache__/
+consumer/
+producer/
+__pycache__/
+Procfile
