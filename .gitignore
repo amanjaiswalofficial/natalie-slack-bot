@@ -7,3 +7,4 @@ consumer/
 producer/
 __pycache__/
 Procfile
+nohup.out
