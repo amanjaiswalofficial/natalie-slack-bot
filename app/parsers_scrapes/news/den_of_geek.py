@@ -1,28 +1,20 @@
+"""File containing parsing method for den of geek"""
 import feedparser
+from slack import WebClient
 
-DEN_OF_GEEK_RSS_FEED = "http://denofgeek.com/us/feeds/all"
+from app.parsers_scrapes.news.constants import DEN_OF_GEEK_RSS_FEED
+from app.parsers_scrapes.news.utils import send_heading, \
+                                           send_response
 
 
-def get_top_10_dog(slack_client) -> None:
+def get_top_10_dog(slack_client: WebClient) -> None:
     """
     This method fetches top 10 news articles and sends them as links
     To the specified channel
-    :param slack_client:
+    :param slack_client: WebClient
     :return: None
     """
     parsed_data = feedparser.parse(DEN_OF_GEEK_RSS_FEED)
-    slack_block = [{"type":
-                        "section",
-                    "text":
-                        {"type": "mrkdwn",
-                         "text": ""
-                         }
-                    }]
-
-    slack_block[0]["text"]["text"] = "*Den of Geek*"
-
-    slack_client.chat_postMessage(channel="#ideas", blocks=slack_block)
-    for news_item in parsed_data["entries"]:
-        slack_text = "<{}|{}>".format(news_item["link"], news_item["title"])
-        slack_block[0]["text"]["text"] = slack_text
-        slack_client.chat_postMessage(channel="#ideas", blocks=slack_block)
+    if len(parsed_data):
+        send_heading(slack_client, "Den of Geek")
+        send_response(slack_client, parsed_data["entries"])

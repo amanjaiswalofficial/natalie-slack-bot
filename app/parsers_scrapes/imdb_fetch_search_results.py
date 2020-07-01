@@ -3,7 +3,12 @@ import urllib
 
 ITEM_URL = "https://www.imdb.com{}"
 IMDB_SEARCH_URL = "https://www.imdb.com/find?q={}&ref_=nv_sr_sm"
-
+#
+# child = list(res.children)
+# child[2]
+# child[2].children
+#
+# child2[3].find_all("script")[1]
 
 def fetch_imdb_results(slack_client, arguments):
     command = "+".join(arguments)
