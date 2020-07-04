@@ -8,3 +8,4 @@ producer/
 __pycache__/
 Procfile
 nohup.out
+last_updated.txt
