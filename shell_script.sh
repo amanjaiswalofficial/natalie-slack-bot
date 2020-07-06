@@ -1,10 +1,12 @@
 # shell script to push news everyday
+# TODO: Fix the script
 
 last_updated_date=$(date +%s)
 today_date=$(date +%s)
+method_called=false
 
 # check if last_updated file exist, meaning this was called before
-if [ -e last_updated ]
+if [ -e last_updated.txt ]
 then
   last_updated_date=$(cat last_updated.txt)
 fi
@@ -17,10 +19,11 @@ then
   # execute python script to push news
   source venv/bin/activate
   python3 update_news_channels.py
+  $method_called=true
 fi
 
 # if the script executed successfully, update the last_updated.txt file
-if [ $? -eq 0 ]
+if method_called
 then
   echo "${today_date}" > last_updated.txt
 fi

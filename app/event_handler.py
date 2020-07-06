@@ -3,7 +3,7 @@ from flask import Response
 from slackeventsapi import SlackEventAdapter
 
 from app import app
-from .init_message_queue import setup_mq
+from .utils import setup_mq
 
 
 slack_events_adapter = \

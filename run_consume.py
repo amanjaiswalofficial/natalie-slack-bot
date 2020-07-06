@@ -1,14 +1,16 @@
 import json
 from slack import WebClient
 
-from app.init_message_queue import setup_mq
+from app.utils import setup_mq, validate_config
 from app.parsers_scrapes import run_command
 
 with open('./config.json') as config_file:
     config_values = json.load(config_file)
 
+validate_config(config_values)
+
 channel, connection = setup_mq(config_values)
-slack_client = WebClient(config_values["SECRET_SIGNING_KEY"])
+slack_signing_key = config_values["SECRET_SIGNING_KEY"]
 
 
 def callback(ch, method, properties, body):
@@ -26,7 +28,7 @@ def callback(ch, method, properties, body):
     if event_type == 'app_mention':
         # Example: find Breaking Bad, read DOG (for Den of Geek)
         command, *arguments = data['event']['text'].split(" ")[1:]
-        run_command[command](slack_client, arguments)
+        run_command[command](slack_signing_key, arguments)
 
 
 channel.basic_consume(config_values['QUEUE_NAME'], callback, auto_ack=True)

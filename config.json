@@ -1,0 +1,8 @@
+{
+  "CLOUDAMQP_URL": "dummy_url",
+  "SLACK_SIGNING_SECRET": "dummy_secret_key",
+  "EXCHANGE": "dummy_exchange",
+  "ROUTING_KEY": "dummy_routing_key",
+  "QUEUE_NAME": "dummy_queue_name",
+  "SECRET_SIGNING_KEY": "dummy_signing_key"
+}

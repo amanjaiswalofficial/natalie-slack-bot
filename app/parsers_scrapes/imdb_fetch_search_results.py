@@ -1,16 +1,26 @@
+from typing import AnyStr, List
+
 from bs4 import BeautifulSoup
 import urllib
 
+from slack import WebClient
+
+from app.utils import get_slack_client
+
 ITEM_URL = "https://www.imdb.com{}"
 IMDB_SEARCH_URL = "https://www.imdb.com/find?q={}&ref_=nv_sr_sm"
-#
-# child = list(res.children)
-# child[2]
-# child[2].children
-#
-# child2[3].find_all("script")[1]
 
-def fetch_imdb_results(slack_client, arguments):
+
+def fetch_imdb_results(slack_signing_key: AnyStr, arguments: List):
+    """
+    This method searches IMDb and returns the links to post on
+    channel #ideas
+    :param slack_signing_key:
+    :param arguments:
+    :return:
+    """
+    slack_client = get_slack_client(slack_signing_key)
+
     command = "+".join(arguments)
     search_url = IMDB_SEARCH_URL.format(command)
     response = urllib.request.urlopen(search_url)
