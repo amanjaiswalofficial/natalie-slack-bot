@@ -1,6 +1,7 @@
 """Utility methods for sending messages to Slack"""
 from typing import AnyStr, List
 from slack import WebClient
+from slack.errors import SlackApiError
 
 from app.parsers_scrapes.news.constants import SLACK_BLOCK
 
@@ -17,7 +18,10 @@ def send_heading(slack_client: WebClient,
     :return: None
     """
     SLACK_BLOCK[0]["text"]["text"] = "*{}*".format(title)
-    slack_client.chat_postMessage(channel=channel, blocks=SLACK_BLOCK)
+    try:
+        slack_client.chat_postMessage(channel=channel, blocks=SLACK_BLOCK)
+    except SlackApiError:
+        raise ConnectionError("Invalid slack client URL, check config")
 
 
 def send_response(slack_client: WebClient,
@@ -34,4 +38,7 @@ def send_response(slack_client: WebClient,
     for news_item in list_of_items:
         slack_text = "<{}|{}>".format(news_item["link"], news_item["title"])
         SLACK_BLOCK[0]["text"]["text"] = slack_text
-        slack_client.chat_postMessage(channel=channel, blocks=SLACK_BLOCK)
+        try:
+            slack_client.chat_postMessage(channel=channel, blocks=SLACK_BLOCK)
+        except SlackApiError:
+            raise ConnectionError("Invalid slack client URL, check config")

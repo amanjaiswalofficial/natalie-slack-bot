@@ -5,6 +5,7 @@ import urllib
 
 from slack import WebClient
 
+from app.parsers_scrapes.scrapes.utils import send_response
 from app.utils import get_slack_client
 
 ITEM_URL = "https://www.imdb.com{}"
@@ -32,4 +33,4 @@ def fetch_imdb_results(slack_signing_key: AnyStr, arguments: List):
     for row in table:
         url_to_open = row.findAll("a")[-1]
         page_url = ITEM_URL.format(url_to_open.attrs['href'])
-        slack_client.chat_postMessage(channel="#ideas", text=page_url)
+        send_response(slack_client=slack_client, response=page_url)
