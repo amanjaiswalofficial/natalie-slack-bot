@@ -1,9 +1,20 @@
 """Utility methods for sending messages to Slack"""
-from typing import AnyStr, List
+from typing import AnyStr, List, Dict
 from slack import WebClient
 from slack.errors import SlackApiError
 
-from app.parsers_scrapes.news.constants import SLACK_BLOCK
+from app.parsers_scrapes.readers.constants import RSS_FEEDS, \
+    SLACK_BLOCK, ERROR_404_MESSAGE
+
+
+def get_source(source_string: AnyStr) -> Dict:
+    """
+    This method finds the rss feed object based on source string
+    :param source_string: String acting as key to find RSS feed source
+    :return:
+    """
+    source = "_".join([word.lower() for word in source_string])
+    return RSS_FEEDS.get(source)
 
 
 def send_heading(slack_client: WebClient,
@@ -42,3 +53,16 @@ def send_response(slack_client: WebClient,
             slack_client.chat_postMessage(channel=channel, blocks=SLACK_BLOCK)
         except SlackApiError:
             raise ConnectionError("Invalid slack client URL, check config")
+
+
+def send_empty_response(slack_client: WebClient) -> None:
+    """
+    This method sends not found error message to the slack chat
+    :param slack_client: SlackClient to post message
+    :return: None
+    """
+    try:
+        slack_client.chat_postMessage(channel="#ideas",
+                                      text=ERROR_404_MESSAGE)
+    except SlackApiError:
+        raise ConnectionError("Invalid slack client URL, check config")
