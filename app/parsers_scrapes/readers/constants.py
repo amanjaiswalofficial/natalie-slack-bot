@@ -8,6 +8,10 @@ RSS_FEEDS = {
         "heading": "Den Of Geek",
         "url": "http://denofgeek.com/us/feeds/all"
     },
+    "edm": {
+        "heading": "EDM.com",
+        "url": "http://youredm.com/feed"
+    },
     "sr": {
         "heading": "Screen Rant",
         "url": "https://screenrant.com/feed/"
@@ -15,6 +19,14 @@ RSS_FEEDS = {
     "screen_rant": {
         "heading": "Screen Rant",
         "url": "https://screenrant.com/feed/"
+    },
+    "ye": {
+        "heading": "Your EDM",
+        "url": "http://youredm.com/feed"
+    },
+    "your_edm": {
+        "heading": "Your EDM",
+        "url": "http://youredm.com/feed"
     }
 }
 
