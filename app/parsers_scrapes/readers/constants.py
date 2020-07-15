@@ -10,7 +10,7 @@ RSS_FEEDS = {
     },
     "edm": {
         "heading": "EDM.com",
-        "url": "http://youredm.com/feed"
+        "url": "https://edm.com/.rss/full/"
     },
     "sr": {
         "heading": "Screen Rant",
