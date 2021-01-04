@@ -10,8 +10,7 @@ def init_error_handler(app):
     :arg app : Application reference
     """
     @app.errorhandler(SlackEventAdapterException)
-    def handle_invalid_secret_signing(err: SlackEventAdapterException) -> \
-            None:
+    def handle_invalid_secret_signing(err: SlackEventAdapterException) -> None:
         """
         This method will handle error for invalid secret signing key for slack.
         :param err: Any kind of exception

@@ -31,7 +31,8 @@ def callback(ch, method, properties, body):
         run_command[command](slack_signing_key, arguments)
 
 
-channel.basic_consume(config_values['QUEUE_NAME'], callback, auto_ack=True)
+channel.basic_consume(config_values['QUEUE_NAME'],
+                      callback, auto_ack=True)
 
 print(' [*] Waiting for commands:')
 channel.start_consuming()
